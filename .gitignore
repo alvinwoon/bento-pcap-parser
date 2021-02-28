@@ -1,0 +1,40 @@
+# PCAP files - cannot distribute market data
+*.pcap
+*.pcapng
+*.cap
+
+# Build artifacts
+*.o
+*.so
+*.a
+*.dylib
+
+# Executables
+iex_parser
+pcap_splitter
+debug_iex
+hex_inspector
+core_trading_parser
+analyze_all_messages
+
+# Debug and temporary files
+*.log
+*.tmp
+*.debug
+core.*
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Test outputs
+test_results/
+benchmark_results/pcap_parser
