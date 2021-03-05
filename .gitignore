@@ -23,8 +23,7 @@ analyze_all_messages
 *.debug
 core.*
 
-# Editor files
-.vscode/
+# Editor files  
 .idea/
 *.swp
 *.swo
