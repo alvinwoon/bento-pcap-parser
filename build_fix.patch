@@ -1,0 +1,11 @@
+--- a/Makefile
++++ b/Makefile
+@@ -10,7 +10,7 @@ CFLAGS = -O3 -march=native -flto -funroll-loops -ffast-math \
+ 
+ # Detect architecture
+ UNAME_M := $(shell uname -m)
+-ifeq ($(UNAME_M),arm64)
++ifeq ($(UNAME_M),x86_64) 
+     ASM_FLAGS += -DARM64=1
+ else
+     ASM_FLAGS += -DX86_64=1
