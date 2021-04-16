@@ -36,4 +36,5 @@ core.*
 
 # Test outputs
 test_results/
-benchmark_results/pcap_parser
+benchmark_results/
+pcap_parser
