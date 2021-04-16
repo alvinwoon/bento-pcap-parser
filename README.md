@@ -4,7 +4,7 @@ A tool for parsing IEX (Investors Exchange) PCAP files https://iextrading.com/tr
 
 ## Features
 
-- **Ultra-fast parsing**: Memory-mapped I/O with SIMD optimization for >1GB/s throughput
+- **Fast parsing**: Memory-mapped I/O with SIMD optimization for >1GB/s throughput
 - **Quote extraction**: Real-time bid/ask price and size extraction from IEX Quote Updates 
 - **Trade monitoring**: Complete trade execution data with symbol, price, volume analysis
 - **Market data analysis**: Message type detection and counting
