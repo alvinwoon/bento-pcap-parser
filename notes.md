@@ -1,6 +1,6 @@
-# CLAUDE.md
+# Development Notes
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Internal development notes and build guidance for the IEX PCAP parser project.
 
 ## Project Overview
 
