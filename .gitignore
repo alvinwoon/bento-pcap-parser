@@ -29,6 +29,9 @@ core.*
 *.swo
 *~
 
+# Internal notes
+notes.md
+
 # macOS
 .DS_Store
 .AppleDouble
