@@ -15,8 +15,6 @@ ASM_SOURCES = $(wildcard $(ASMDIR)/*.s)
 C_SOURCES = $(wildcard $(CDIR)/*.c)
 ASM_OBJECTS = $(ASM_SOURCES:$(ASMDIR)/%.s=$(BUILDDIR)/%.o)
 C_OBJECTS = $(C_SOURCES:$(CDIR)/%.c=$(BUILDDIR)/%.o)
-# Remove duplicate simd_optimizer_c.o since it just includes simd_optimizer.c
-CLEAN_C_OBJECTS = $(filter-out $(BUILDDIR)/simd_optimizer_c.o,$(C_OBJECTS))
 
 TARGET = pcap_parser
 SIMD_BENCHMARK = simd_benchmark
@@ -44,7 +42,7 @@ test: $(TARGET)
 	./test/run_tests.sh
 
 # SIMD benchmark target (exclude main.o to avoid main() conflict)
-BENCHMARK_OBJECTS = $(filter-out $(BUILDDIR)/main.o,$(CLEAN_C_OBJECTS))
+BENCHMARK_OBJECTS = $(filter-out $(BUILDDIR)/main.o,$(C_OBJECTS))
 $(SIMD_BENCHMARK): simd_benchmark.c $(BENCHMARK_OBJECTS) $(ASM_OBJECTS) | $(BUILDDIR)
 	$(CC) $(CFLAGS) simd_benchmark.c $(BENCHMARK_OBJECTS) $(ASM_OBJECTS) -o $@ $(LDFLAGS)
 

@@ -41,3 +41,4 @@ notes.md
 test_results/
 benchmark_results/
 pcap_parser
+simd_demo
