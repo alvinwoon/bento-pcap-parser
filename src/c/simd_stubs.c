@@ -1,5 +1,7 @@
 #include "simd_optimizer.h"
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 // Stub implementations for SIMD functions
 // These provide basic functionality when assembly isn't available
@@ -48,4 +50,56 @@ void _cache_optimized_chunk_processor(const void* source,
     // Simple stub - optimized memcpy
     // In real implementation, would use streaming stores and prefetching
     memcpy(destination, source, chunk_size);
+}
+
+// Additional SIMD functions needed for benchmarking
+void detect_simd_capabilities(simd_capabilities_t* caps) {
+    if (!caps) return;
+    
+    caps->has_neon = 0;
+    caps->has_avx2 = 0;
+    caps->has_avx512 = 0;
+    caps->cache_line_size = 64;
+    
+#ifdef __aarch64__
+    caps->has_neon = 1;
+#elif defined(__x86_64__)
+    caps->has_avx2 = 1; // Assume modern x86_64 has AVX2
+#endif
+}
+
+int alloc_simd_buffer(simd_memory_buffer_t* buffer, size_t size, size_t alignment) {
+    if (!buffer) return -1;
+    
+    // Align to specified boundaries for SIMD operations
+    void* ptr = NULL;
+    if (posix_memalign(&ptr, alignment > 0 ? alignment : 64, size) != 0) {
+        return -1;
+    }
+    
+    buffer->aligned_buffer = ptr;
+    buffer->buffer_size = size;
+    buffer->alignment = alignment > 0 ? alignment : 64;
+    buffer->numa_node = 0; // Default to node 0
+    
+    return 0;
+}
+
+void free_simd_buffer(simd_memory_buffer_t* buffer) {
+    if (buffer && buffer->aligned_buffer) {
+        free(buffer->aligned_buffer);
+        buffer->aligned_buffer = NULL;
+        buffer->buffer_size = 0;
+    }
+}
+
+void get_optimal_tuning_params(const simd_capabilities_t* caps, simd_tuning_params_t* params) {
+    if (!params) return;
+    
+    // Default conservative tuning parameters
+    params->batch_size = 256;
+    params->prefetch_distance = caps ? caps->cache_line_size : 64;
+    params->chunk_alignment = caps ? caps->cache_line_size : 64;
+    params->use_streaming_stores = 1;
+    params->prefetch_levels = 2;
 }

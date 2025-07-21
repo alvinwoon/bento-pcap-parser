@@ -5,11 +5,6 @@
 
 // This file is intentionally minimal to avoid symbol conflicts
 // Real SIMD implementations would go here when fully integrated
-
-.global _placeholder_simd_function
-_placeholder_simd_function:
-#ifdef __aarch64__
-    ret
-#else
-    ret
-#endif
+// 
+// Note: placeholder_simd_function is implemented in simd_optimizer.c
+// to avoid duplicate symbol conflicts
